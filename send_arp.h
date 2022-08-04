@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-int request(const char *dev, pcap_t *pcap, u_int8_t *dest_mac, u_int8_t *source_mac, u_int8_t *sender_mac, u_int8_t *sender_ip, u_int8_t *target_mac, u_int8_t *target_ip)
+int request(const char *dev, pcap_t *pcap, u_int8_t *dest_mac, u_int8_t *source_mac, u_int8_t *sender_mac, u_int8_t *sender_ip, u_int8_t *target_mac, u_int8_t *target_ip, int type)
 {
     EthArpPacket packet;
 
@@ -11,7 +11,19 @@ int request(const char *dev, pcap_t *pcap, u_int8_t *dest_mac, u_int8_t *source_
     packet.arp_.pro_ = htons(EthHdr::Ip4);
     packet.arp_.hln_ = 6;
     packet.arp_.pln_ = 4;
-    packet.arp_.op_ = htons(ArpHdr::Request);
+    if (type == 0)
+    {
+        packet.arp_.op_ = htons(ArpHdr::Request);
+    }
+    else if (type == 1)
+    {
+        packet.arp_.op_ = htons(ArpHdr::Reply);
+    }
+    else
+    {
+        printf("case 0 is sending request, case 1 is sending reply\n");
+        return -1;
+    }
     copy_mac(sender_mac, packet.arp_.smac_);
     copy_ip(sender_ip, packet.arp_.sip);
     copy_mac(target_mac, packet.arp_.tmac_);
@@ -25,7 +37,7 @@ int request(const char *dev, pcap_t *pcap, u_int8_t *dest_mac, u_int8_t *source_
     return 0;
 }
 
-int reply(const char *dev, pcap_t *pcap)
+int reply(const char *dev, pcap_t *pcap, u_int8_t *mac)
 {
     struct pcap_pkthdr *header;
     const u_char *packet;
@@ -41,7 +53,6 @@ int reply(const char *dev, pcap_t *pcap)
     {
         if (arppkt->arp_.pro_ == htons(EthHdr::Ip4))
         {
-
             print_mac(arppkt->arp_.smac_);
         }
     }
