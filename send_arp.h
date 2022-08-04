@@ -56,6 +56,6 @@ int reply(const char *dev, pcap_t *pcap, u_int8_t *mac)
             print_mac(arppkt->arp_.smac_);
         }
     }
-
+    copy_mac(arppkt->arp_.smac_, mac);
     return 0;
 }
