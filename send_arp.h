@@ -37,7 +37,7 @@ int request(const char *dev, pcap_t *pcap, u_int8_t *dest_mac, u_int8_t *source_
     return 0;
 }
 
-int reply(const char *dev, pcap_t *pcap, u_int8_t *mac)
+int reply(const char *dev, pcap_t *pcap, u_int8_t *mac, u_int8_t *ip)
 {
     struct pcap_pkthdr *header;
     const u_char *packet;
@@ -49,7 +49,7 @@ int reply(const char *dev, pcap_t *pcap, u_int8_t *mac)
     }
     EthArpPacket *arppkt;
     arppkt = (EthArpPacket *)packet;
-    if (arppkt->eth_.type_ == htons(EthHdr::Arp) && arppkt->arp_.pro_ == htons(EthHdr::Ip4))
+    if (arppkt->eth_.type_ == htons(EthHdr::Arp) && arppkt->arp_.pro_ == htons(EthHdr::Ip4) && if_same_ip(arppkt->arp_.sip, ip))
     {
         copy_mac(arppkt->arp_.smac_, mac);
     }
