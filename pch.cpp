@@ -20,7 +20,6 @@ void copy_ip(u_int8_t *src, u_int8_t *dst)
 }
 void print_ip(u_int8_t *ip)
 {
-    printf("ip addr :");
     for (int i = 0; i < 4; i++)
     {
         printf("%d", ip[i]);
@@ -40,7 +39,6 @@ void copy_mac(u_int8_t *src, u_int8_t *dst)
 }
 void print_mac(u_int8_t *mac)
 {
-    printf("mac addr ");
     for (int i = 0; i < 6; i++)
     {
         printf("%02x", mac[i]);

