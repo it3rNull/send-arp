@@ -49,13 +49,9 @@ int reply(const char *dev, pcap_t *pcap, u_int8_t *mac)
     }
     EthArpPacket *arppkt;
     arppkt = (EthArpPacket *)packet;
-    if (arppkt->eth_.type_ == htons(EthHdr::Arp))
+    if (arppkt->eth_.type_ == htons(EthHdr::Arp) && arppkt->arp_.pro_ == htons(EthHdr::Ip4))
     {
-        if (arppkt->arp_.pro_ == htons(EthHdr::Ip4))
-        {
-            print_mac(arppkt->arp_.smac_);
-        }
+        copy_mac(arppkt->arp_.smac_, mac);
     }
-    copy_mac(arppkt->arp_.smac_, mac);
     return 0;
 }
