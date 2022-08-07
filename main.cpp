@@ -4,13 +4,13 @@
 #include "ip.h"
 void usage()
 {
-	printf("syntax: send-arp-test <interface>\n");
-	printf("sample: send-arp-test wlan0\n");
+	printf("syntax: send-arp <interface>\n");
+	printf("sample: send-arp wlan0\n");
 }
 
 int main(int argc, char *argv[])
 {
-	if (argc != 4)
+	if (argc != 3)
 	{
 		usage();
 		return -1;
