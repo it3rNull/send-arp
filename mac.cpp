@@ -24,6 +24,6 @@ int my_mac(char *argv, u_int8_t *mac)
     for (int i = 0; i < 6; i++)
     {
         mac[i] = temp_mac[i];
-    }
+    } // memcpy
     return 0;
 }

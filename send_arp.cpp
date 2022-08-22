@@ -10,7 +10,7 @@ int request(const char *dev, pcap_t *pcap, u_int8_t *dest_mac, u_int8_t *source_
     packet.arp_.pro_ = htons(EthHdr::Ip4);
     packet.arp_.hln_ = 6;
     packet.arp_.pln_ = 4;
-    if (type == 0)
+    if (type == 0) // enum
     {
         packet.arp_.op_ = htons(ArpHdr::Request);
     }
