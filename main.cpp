@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		sleep(10);
+		sleep(1);
 		request(dev, pcap, sender_mac, attacker_mac, attacker_mac, target_ip, sender_mac, sender_ip, 1);
 	}
 
