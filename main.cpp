@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
 	{
 		sleep(1);
 		request(dev, pcap, sender_mac, attacker_mac, attacker_mac, target_ip, sender_mac, sender_ip, 1);
+		request(dev, pcap, target_mac, attacker_mac, attacker_mac, sender_ip, target_mac, target_ip, 1);
 	}
 
 	printf("attacker ip addr : ");
